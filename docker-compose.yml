@@ -1,0 +1,21 @@
+version: "3.6"
+services:
+  try-kaminari:
+    image: try-kaminari
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    volumes:
+      - "/app/scripts/nginx"
+      - ".:/app"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:9.6-alpine
+    restart: always
+    env_file:
+      - .postgres_env
